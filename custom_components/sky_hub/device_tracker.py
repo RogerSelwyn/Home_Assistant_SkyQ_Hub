@@ -11,9 +11,17 @@ from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (CONF_TRACK_NEW, DATA_SKYQHUB, DEFAULT_DEVICE_NAME,
-                    DEFAULT_TRACK_NEW, DOMAIN, STATE_CABLED,
-                    STATE_DISCONNECTED)
+from .const import (
+    CAPABILITY_KEEP,
+    CONF_TRACK_NEW,
+    DATA_SKYQHUB,
+    DEFAULT_DEVICE_NAME,
+    DEFAULT_KEEP,
+    DEFAULT_TRACK_NEW,
+    DOMAIN,
+    STATE_CABLED,
+    STATE_DISCONNECTED,
+)
 from .router import SkyQHubRouter, get_tracked_entities, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
@@ -59,10 +67,10 @@ def add_entities(hass, config, router, async_add_entities, tracked, track_new):
         if mac in tracked:
             continue
 
-        keep = False
+        keep = DEFAULT_KEEP
         for tracked_entity in tracked_entities:
             if format_mac(tracked_entity.unique_id) == mac:
-                keep = tracked_entity.capabilities["keep"]
+                keep = tracked_entity.capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
 
         new_tracked.append(SkyHubDevice(router, device, track_new, keep))
         tracked.add(mac)
@@ -141,7 +149,7 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     @property
     def capability_attributes(self):
         """Return capability attributes."""
-        return {"keep": self._keep}
+        return {CAPABILITY_KEEP: self._keep}
 
     @callback
     def async_on_demand_update(self):

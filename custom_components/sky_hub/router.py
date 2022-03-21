@@ -22,7 +22,13 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
 from pyskyqhub.skyq_hub import SkyQHub
 
-from .const import CONF_TRACK_UNKNOWN, CONST_UNKNOWN, DEFAULT_TRACK_UNKNOWN, DOMAIN
+from .const import (
+    CAPABILITY_KEEP,
+    CONF_TRACK_UNKNOWN,
+    CONST_UNKNOWN,
+    DEFAULT_TRACK_UNKNOWN,
+    DOMAIN,
+)
 
 SCAN_INTERVAL = timedelta(seconds=20)
 
@@ -160,7 +166,9 @@ class SkyQHubRouter:
     def _change_keep(self, call, keep):
         entity_reg = er.async_get(self.hass)
         for entity_id in call.data["entity_id"]:
-            entity_reg.async_update_entity(entity_id, capabilities={"keep": keep})
+            entity_reg.async_update_entity(
+                entity_id, capabilities={CAPABILITY_KEEP: keep}
+            )
             signal = signal_device_keep(entity_id)
             async_dispatcher_send(self.hass, signal, keep)
 

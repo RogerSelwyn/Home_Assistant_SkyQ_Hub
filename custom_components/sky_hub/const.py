@@ -1,11 +1,13 @@
 """Sky_hub component constants."""
 from dataclasses import dataclass, field
 
+CAPABILITY_KEEP = "keep"
 CONF_TRACK_NEW = "track_new"
 CONF_TRACK_UNKNOWN = "track_unknown"
 CONST_UNKNOWN = "unknown"
 DATA_SKYQHUB = "skyqhub"
 DEFAULT_DEVICE_NAME = "Unknown device"
+DEFAULT_KEEP = False
 DEFAULT_TRACK_NEW = False
 DEFAULT_TRACK_UNKNOWN = False
 DOMAIN = "sky_hub"
