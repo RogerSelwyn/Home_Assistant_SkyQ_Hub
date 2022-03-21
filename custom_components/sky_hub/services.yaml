@@ -1,0 +1,6 @@
+delete_device:
+  name: Delete a device
+  description: Delete a device that no longer connects to the router
+  target:
+    device:
+      integration: sky_hub

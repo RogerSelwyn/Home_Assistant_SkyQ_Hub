@@ -113,7 +113,8 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         """Return device icon."""
         if self._device.is_connected:
             return "mdi:wifi" if self._connection != STATE_CABLED else "mdi:lan-connect"
-        elif self._connection == STATE_DISCONNECTED:
+
+        if self._connection == STATE_DISCONNECTED:
             return "mdi:lan-disconnect"
 
         return (
