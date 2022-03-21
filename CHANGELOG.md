@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.3 (2022/03/21)
+### Fixes
+- [Fix capabilities](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/af925e574963097b49e326fb8af1489176a20722) - @RogerSelwyn
+
+### Maintenance
+- [Update name in hacs.json](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/52c3df9abd44e3cc571fe335138e0aff97828637) - @RogerSelwyn
+- [Bump to v1.0.3](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2aab6c722ac98f0f7a645d54684329200c7469a1) - @RogerSelwyn
+
 ## v1.0.2 (2022/03/21)
 ### Fixes
 - [Handle missing keep capability](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/4ced860f0e306fed5de7772b5017cec8b375c4aa) - @RogerSelwyn
