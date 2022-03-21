@@ -12,4 +12,7 @@ The components provides two configuration options.
 * Track unknown - When enabled, devices with an unknown name are enabled for tracking in HASS.
 * Track new - When enabled, newly discovered devices are enabled for tracking in HASS.
 
-A service is provided 'skyhub.delete_device' that enables devices to be deleted.
+The following services are provided:
+* sky_hub.delete_device - Deletes a device
+* sky_hub.keep_device - Marks a device to be kept (this has no particular function other than adding a marker in the entity registry which can be used externally)
+* sky_hub.unkeep_device - Unmarks a device to be kept 
