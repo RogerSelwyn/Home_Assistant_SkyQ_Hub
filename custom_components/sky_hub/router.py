@@ -149,6 +149,21 @@ class SkyQHubRouter:
                     break
             entity_reg.async_remove(entity_id)
 
+    def keep_device(self, call):
+        """Keep a device."""
+        self._change_keep(call, True)
+
+    def unkeep_device(self, call):
+        """Unkeep a device."""
+        self._change_keep(call, False)
+
+    def _change_keep(self, call, keep):
+        entity_reg = er.async_get(self.hass)
+        for entity_id in call.data["entity_id"]:
+            entity_reg.async_update_entity(entity_id, capabilities={"keep": keep})
+            signal = signal_device_keep(entity_id)
+            async_dispatcher_send(self.hass, signal, keep)
+
     @property
     def signal_device_new(self) -> str:
         """Event specific per Sky Q Hub entry to signal new device."""
@@ -232,3 +247,8 @@ def get_tracked_entities(hass, config):
     """Get the tracked entities for this config."""
     entity_reg = er.async_get(hass)
     return er.async_entries_for_config_entry(entity_reg, config.entry_id), entity_reg
+
+
+def signal_device_keep(entity_id) -> str:
+    """Event specific per Sky Q Hub entry to signal device keep."""
+    return f"{DOMAIN}-{entity_id}-device-keep"

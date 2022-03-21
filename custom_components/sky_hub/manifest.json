@@ -3,16 +3,10 @@
   "name": "Sky Q Hub",
   "documentation": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub",
   "issue_tracker": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/issues",
-  "requirements": [
-    "pyskyqhub==0.1.6"
-  ],
-  "codeowners": [
-    "@rogerselwyn"
-  ],
+  "requirements": ["pyskyqhub==0.1.6"],
+  "codeowners": ["@rogerselwyn"],
   "iot_class": "local_polling",
   "config_flow": true,
   "version": "v1.0.0",
-  "loggers": [
-    "pyskyqhub"
-  ]
+  "loggers": ["pyskyqhub"]
 }

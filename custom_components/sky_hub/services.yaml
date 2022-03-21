@@ -4,3 +4,17 @@ delete_device:
   target:
     device:
       integration: sky_hub
+
+keep_device:
+  name: Keep a device
+  description: Tag a device to mark for keeping
+  target:
+    device:
+      integration: sky_hub
+
+unkeep_device:
+  name: Unkeep a device
+  description: Untag a device to unmark for keeping
+  target:
+    device:
+      integration: sky_hub

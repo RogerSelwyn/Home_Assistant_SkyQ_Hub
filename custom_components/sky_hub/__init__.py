@@ -53,3 +53,5 @@ async def update_listener(hass, config_entry):
 def register_router_services(hass, router):
     """Register the router services."""
     hass.services.register(DOMAIN, "delete_device", router.delete_device)
+    hass.services.register(DOMAIN, "keep_device", router.keep_device)
+    hass.services.register(DOMAIN, "unkeep_device", router.unkeep_device)
