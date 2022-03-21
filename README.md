@@ -7,7 +7,7 @@
 
 This component is a significant re-write of the core 'sky_hub' integration. It is only supported via the UI, and there is no migration from the core version.
 
-The components provides two configurayion options.
+The components provides two configuration options.
 
 * Track unknown - When enabled, devices with an unknown name are enabled for tracking in HASS.
 * Track new - When enabled, newly discovered devices are enabled for tracking in HASS.
