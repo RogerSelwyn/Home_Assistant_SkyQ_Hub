@@ -1,7 +1,8 @@
 {
   "domain": "sky_hub",
   "name": "Sky Q Hub",
-  "documentation": "https://www.home-assistant.io/integrations/sky_hub",
+  "documentation": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub",
+  "issue_tracker": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/issues",
   "requirements": ["pyskyqhub==0.1.6"],
   "codeowners": ["@rogerselwyn"],
   "iot_class": "local_polling",
