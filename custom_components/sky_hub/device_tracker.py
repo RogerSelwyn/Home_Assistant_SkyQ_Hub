@@ -69,7 +69,10 @@ def add_entities(hass, config, router, async_add_entities, tracked, track_new):
 
         keep = DEFAULT_KEEP
         for tracked_entity in tracked_entities:
-            if format_mac(tracked_entity.unique_id) == mac:
+            if (
+                format_mac(tracked_entity.unique_id) == mac
+                and tracked_entity.capabilities
+            ):
                 keep = tracked_entity.capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
 
         new_tracked.append(SkyHubDevice(router, device, track_new, keep))
