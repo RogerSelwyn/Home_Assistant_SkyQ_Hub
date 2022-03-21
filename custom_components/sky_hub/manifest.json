@@ -1,9 +1,11 @@
 {
   "domain": "sky_hub",
-  "name": "Sky Hub",
+  "name": "Sky Q Hub",
   "documentation": "https://www.home-assistant.io/integrations/sky_hub",
-  "requirements": ["pyskyqhub==0.1.4"],
+  "requirements": ["pyskyqhub==0.1.6"],
   "codeowners": ["@rogerselwyn"],
   "iot_class": "local_polling",
+  "config_flow": true,
+  "version": "v1.0.0",
   "loggers": ["pyskyqhub"]
 }

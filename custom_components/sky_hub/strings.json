@@ -1,0 +1,30 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "This Sky Q Hub router is already configured."
+    },
+    "error": {
+      "cannot_connect": "Failed to connect, invalid host."
+    },
+    "step": {
+      "user": {
+        "data": {
+          "host": "Host"
+        },
+        "description": "Set up Sky Hub integration.",
+        "title": "Sky Q Hub"
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "track_unknown": "Track unknown devices",
+          "track_new": "Track new devices"
+        },
+        "title": "Options for Sky Q Hub"
+      }
+    }
+  }
+}
