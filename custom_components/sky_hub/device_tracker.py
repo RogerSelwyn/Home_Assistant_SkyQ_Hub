@@ -152,7 +152,10 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     @property
     def capability_attributes(self):
         """Return capability attributes."""
-        return {CAPABILITY_KEEP: self._keep}
+        if self._keep and self._keep is True:
+            return {CAPABILITY_KEEP: self._keep}
+
+        return None
 
     @callback
     def async_on_demand_update(self):
