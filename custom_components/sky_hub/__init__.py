@@ -40,6 +40,8 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 async def async_unload_entry(hass, config):
     """Unload a config entry."""
     if unload_ok := await hass.config_entries.async_unload_platforms(config, PLATFORMS):
+        router = hass.data[DOMAIN][config.entry_id][DATA_SKYQHUB]
+        await router.close()
         hass.data[DOMAIN].pop(config.entry_id)
 
     return unload_ok
