@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.4 (2022/03/22)
+### Enhancements
+- [Don't show keep when not set](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/dab8f2609ea0131c729bef8742275eef79e281c7) - @RogerSelwyn
+
+### Fixes
+- [Fix repetitive functions continuing after unload](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/3b96efb7b6389aadac786129c9cb09fbcb7562cc) - @RogerSelwyn
+- [Don't show keep when not set](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/dab8f2609ea0131c729bef8742275eef79e281c7) - @RogerSelwyn
+- [Fix name not being set](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/845b046a22d5aeee7c622087381b04960ed97af9) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.4](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/911ddd73bbefd8716ed9aae977e1655bcffd185e) - @RogerSelwyn
+
 ## v1.0.3 (2022/03/21)
 ### Fixes
 - [Fix capabilities](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/af925e574963097b49e326fb8af1489176a20722) - @RogerSelwyn
