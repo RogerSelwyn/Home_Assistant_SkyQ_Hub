@@ -78,9 +78,8 @@ class SkyQHubRouter:
             async_track_time_interval(self.hass, self.async_update_all, SCAN_INTERVAL)
         )
 
-    async def async_close(self) -> None:
+    async def close(self) -> None:
         """Close the connection."""
-        _LOGGER.debug("async_close - needed")
         for func in self._on_close:
             func()
         self._on_close.clear()
@@ -218,6 +217,8 @@ class SkyQHubDevInfo:
             self._connected = True
             self._connection = devinfo.connection
             if self._name != devinfo.name and devinfo.name.lower() != CONST_UNKNOWN:
+                self._name = devinfo.name
+            elif not self._name:
                 self._name = devinfo.name
 
         elif self._connected:
