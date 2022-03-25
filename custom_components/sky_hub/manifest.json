@@ -4,7 +4,7 @@
   "documentation": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub",
   "issue_tracker": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/issues",
   "requirements": [
-    "pyskyqhub==0.1.6"
+    "pyskyqhub==0.1.7"
   ],
   "codeowners": [
     "@rogerselwyn"
