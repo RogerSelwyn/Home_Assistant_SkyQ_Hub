@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.5 (2022/03/25)
+### Enhancements
+- [Add Wifi SSID sensor](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/37e949588c7d47796c175ff2b008959db734dbea) - @RogerSelwyn
+- [Add diagnostics](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/877940f14fec348e6fb0c7459e05b998e5505692) - @RogerSelwyn
+- [Bump pyskyqhub to 0.1.7](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/3896183d909f17002537e21dc68f4c68e5769b37) - @RogerSelwyn
+
+### Maintenance
+- [Update README.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2f601b6d2b90275e3c9482adefbb41149ee40a14) - @RogerSelwyn
+- [Bump to v1.0.5](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/3c112772d1e30151005f5bf140218469389f3e12) - @RogerSelwyn
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/51dd17db0a95aafe649acf60f967cee007239238) - @actions-user
+
 ## v1.0.4 (2022/03/22)
 ### Enhancements
 - [Don't show keep when not set](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/dab8f2609ea0131c729bef8742275eef79e281c7) - @RogerSelwyn
