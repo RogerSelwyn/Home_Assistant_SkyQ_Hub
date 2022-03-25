@@ -11,17 +11,9 @@ from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (
-    CAPABILITY_KEEP,
-    CONF_TRACK_NEW,
-    DATA_SKYQHUB,
-    DEFAULT_DEVICE_NAME,
-    DEFAULT_KEEP,
-    DEFAULT_TRACK_NEW,
-    DOMAIN,
-    STATE_CABLED,
-    STATE_DISCONNECTED,
-)
+from .const import (CAPABILITY_KEEP, CONF_TRACK_NEW, DATA_SKYQHUB,
+                    DEFAULT_DEVICE_NAME, DEFAULT_KEEP, DEFAULT_TRACK_NEW,
+                    DOMAIN, STATE_CABLED, STATE_DISCONNECTED)
 from .router import SkyQHubRouter, get_tracked_entities, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)

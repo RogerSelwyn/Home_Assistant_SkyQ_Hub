@@ -1,16 +1,12 @@
 """The sky_hub component."""
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
+from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import HomeAssistant
 
 from .const import DATA_SKYQHUB, DOMAIN
 from .router import SkyQHubRouter
 
-# from homeassistant.exceptions import ConfigEntryNotReady
-# from homeassistant.helpers.aiohttp_client import async_get_clientsession
-
-
-PLATFORMS = [Platform.DEVICE_TRACKER]
+PLATFORMS = [Platform.DEVICE_TRACKER, Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
@@ -20,13 +16,13 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     router.async_on_close(config_entry.add_update_listener(update_listener))
 
-    # async def async_close_connection(event):
-    #     """Close AsusWrt connection on HA Stop."""
-    #     await router.async_close()
+    async def async_close_connection(event):  # pylint: disable=unused-argument
+        """Close Sky Q Hub connection on HA Stop."""
+        await router.close()
 
-    # config_entry.async_on_unload(
-    #     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, async_close_connection)
-    # )
+    config_entry.async_on_unload(
+        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, async_close_connection)
+    )
 
     hass.data.setdefault(DOMAIN, {})[config_entry.entry_id] = {DATA_SKYQHUB: router}
 

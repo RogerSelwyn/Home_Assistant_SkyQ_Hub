@@ -41,6 +41,7 @@ class SkyQHubRouter:
     def __init__(self, hass: HomeAssistant, config: ConfigEntry) -> None:
         """Initialize a Sky Q Hub router."""
         self.hass = hass
+        self._ssid = None
         self._config = config
         self._devices: dict[str, Any] = {}
         self._connected_devices = 0
@@ -100,8 +101,10 @@ class SkyQHubRouter:
         new_device = False
         _LOGGER.debug("Checking devices for Sky Q router %s", self._host)
 
-        if not (devices := await self._router.async_get_skyhub_data()):
+        devices = await self._router.async_get_skyhub_data()
+        if not devices:
             return
+        ssid = self._router.ssid
 
         # devices = TEST_DEVICES
         self._connected_devices = len(devices)
@@ -129,6 +132,13 @@ class SkyQHubRouter:
         async_dispatcher_send(self.hass, self.signal_device_update)
         if new_device:
             async_dispatcher_send(self.hass, self.signal_device_new)
+        if ssid != self._ssid:
+            self._ssid = ssid
+            async_dispatcher_send(self.hass, self.signal_sensor_update)
+        # else:
+        #     _LOGGER.debug("old: %s, new: %s", self._ssid, "blah")
+        #     self._ssid = "blah"
+        #     async_dispatcher_send(self.hass, self.signal_sensor_update)
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -136,11 +146,16 @@ class SkyQHubRouter:
         return DeviceInfo(
             identifiers={(DOMAIN, "SkyQHub")},
             name=self._host,
-            model="n/a",
+            model="Sky Q Hub",
             manufacturer="Sky",
             sw_version="n/a",
             configuration_url=f"http://{self._host}",
         )
+
+    @property
+    def ssid(self):
+        """Return the ssid of wifi on router."""
+        return self._ssid
 
     def delete_device(self, call):
         """Delete a device."""
@@ -185,6 +200,11 @@ class SkyQHubRouter:
     def signal_device_delete(self) -> str:
         """Event specific per Sky Q Hub entry to signal device deletes."""
         return f"{DOMAIN}-device-delete"
+
+    @property
+    def signal_sensor_update(self) -> str:
+        """Event specific per Sky Q Hub entry to update sensor."""
+        return f"{DOMAIN}-sensor-update"
 
     @property
     def host(self) -> str:
