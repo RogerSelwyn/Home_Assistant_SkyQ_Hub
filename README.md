@@ -12,6 +12,10 @@ The components provides two configuration options.
 * Track unknown - When enabled, devices with an unknown name are enabled for tracking in HASS.
 * Track new - When enabled, newly discovered devices are enabled for tracking in HASS.
 
+The component provides two types of entities:
+* Device_Tracker - One for each device connected to the router inline with the configuration options above.
+* Sensor - Giving the SSID of the Wifi enabled on the router.
+
 The following services are provided:
 * sky_hub.delete_device - Deletes a device
 * sky_hub.keep_device - Marks a device to be kept (this has no particular function other than adding a marker in the entity registry which can be used externally)
