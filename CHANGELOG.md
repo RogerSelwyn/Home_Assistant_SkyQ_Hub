@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.8 (2022/03/26)
+### Fixes
+- [Make sure connection type is retained](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/c7f1ab4fcf0d77b78dcdfda95762fa6dc2438bfa) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.8](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2ced3d57d3af633129a490ed3bac951352e634d5) - @RogerSelwyn
+
 ## v1.0.7 (2022/03/26)
 ### Fixes
 - [Fix issue with capabilities not being present on some entities.](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/af098ae020274e1291a2ac68010df01c041ccdbd) - @RogerSelwyn
