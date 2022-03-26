@@ -24,6 +24,7 @@ from homeassistant.util import dt as dt_util
 from pyskyqhub.skyq_hub import SkyQHub
 
 from .const import (
+    CAPABILITY_CONNECTION,
     CAPABILITY_KEEP,
     CONF_TRACK_UNKNOWN,
     CONST_UNKNOWN,
@@ -107,7 +108,6 @@ class SkyQHubRouter:
             return
         await self._async_update_sensors()
 
-        # devices = TEST_DEVICES
         self._connected_devices = len(devices)
         consider_home = self._options.get(
             CONF_CONSIDER_HOME, DEFAULT_CONSIDER_HOME.total_seconds()
@@ -239,8 +239,8 @@ class SkyQHubDevInfo:
             devinfo = dev_info["device_info"]
             self._last_activity = utc_point_in_time
             self._connected = True
-            self._connection = devinfo.connection
             self._update_entity_name_id(hass, devinfo)
+            self._update_entity_connection(hass, devinfo)
 
         elif self._connected:
             self._connected = (
@@ -289,6 +289,26 @@ class SkyQHubDevInfo:
             self._name = devinfo.name
         elif not self._name:
             self._name = devinfo.name
+
+    def _update_entity_connection(self, hass, devinfo):
+        # if not self._connection:
+        #     devinfo.connection = "blah"
+        if (
+            self._connection
+            and self._connection != devinfo.connection
+            and devinfo.connection.lower() != CONST_UNKNOWN
+        ):
+            entity_reg = er.async_get(hass)
+            entity_id = entity_reg.async_get_entity_id(
+                Platform.DEVICE_TRACKER, DOMAIN, self._mac
+            )
+            entity = entity_reg.async_get(entity_id)
+            capabilities = deepcopy(entity.capabilities)
+            capabilities[CAPABILITY_CONNECTION] = devinfo.connection
+            entity_reg.async_update_entity(entity_id, capabilities=capabilities)
+            self._connection = devinfo.connection
+        elif not self._connection:
+            self._connection = devinfo.connection
 
 
 def get_tracked_entities(hass, config):
