@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.7 (2022/03/26)
+### Fixes
+- [Fix issue with capabilities not being present on some entities.](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/af098ae020274e1291a2ac68010df01c041ccdbd) - @RogerSelwyn
+- [Make sure name doesn't auto change after it is has changed from Unknown](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/8a4fb0bd7ef565df310c0d225a234535643c6bef) - @RogerSelwyn
+- [Fix services allowing targeting of sensor](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/1ee0f7fe965bc8006663580e1ba90f150a7cb20e) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.7](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/3c6dcd2841a83f1d4b71ddfdbc01000996c9dc51) - @RogerSelwyn
+
 ## v1.0.6 (2022/03/26)
 ### Enhancements
 - [Known name and connection type to be retained](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/9f4952a90990f773bd9e46d55c4dc132f800a11e) - @RogerSelwyn
