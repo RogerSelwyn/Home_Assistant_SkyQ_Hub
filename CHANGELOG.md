@@ -4,8 +4,14 @@
 ### Enhancements
 - [Known name and connection type to be retained](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/9f4952a90990f773bd9e46d55c4dc132f800a11e) - @RogerSelwyn
 
+### Fixes
+- [Prevent entity_id from changing more than once](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/8088e410693ebe8d91068a8b6214c82de369e536) - @RogerSelwyn
+
 ### Maintenance
 - [Bump to v1.0.6](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/b244823c0c44ca3a27ff7aa36dbffaf9d7682e7a) - @RogerSelwyn
+- [Update README.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/f18e1b8e4ec118f7ac8623e1298f5e0d6a6e2de6) - @RogerSelwyn
+- [Update README.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/847a4e0498505eb3c9405bbe1527f6bd733d0bb4) - @RogerSelwyn
+
 
 ## v1.0.5 (2022/03/25)
 ### Enhancements
