@@ -11,18 +11,10 @@ from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (
-    CAPABILITY_CONNECTION,
-    CAPABILITY_KEEP,
-    CONF_TRACK_NEW,
-    DATA_SKYQHUB,
-    DEFAULT_DEVICE_NAME,
-    DEFAULT_KEEP,
-    DEFAULT_TRACK_NEW,
-    DOMAIN,
-    STATE_CABLED,
-    STATE_DISCONNECTED,
-)
+from .const import (CAPABILITY_CONNECTION, CAPABILITY_KEEP, CONF_TRACK_NEW,
+                    DATA_SKYQHUB, DEFAULT_DEVICE_NAME, DEFAULT_KEEP,
+                    DEFAULT_TRACK_NEW, DOMAIN, STATE_CABLED,
+                    STATE_DISCONNECTED)
 from .router import SkyQHubRouter, get_tracked_entities, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
@@ -97,10 +89,12 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         self._enabled_default = enabled_default
         if device.connection:
             self._connection = device.connection.lower().capitalize()
-        else:
+        elif capabilities:
             self._connection = capabilities.get(
                 CAPABILITY_CONNECTION, STATE_DISCONNECTED
             )
+        else:
+            self._connection = STATE_DISCONNECTED
         if capabilities:
             self._keep = capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
         else:
