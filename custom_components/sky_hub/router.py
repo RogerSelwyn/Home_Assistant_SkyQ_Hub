@@ -282,9 +282,10 @@ class SkyQHubDevInfo:
                 old_entity_id = entity_reg.async_get_entity_id(
                     Platform.DEVICE_TRACKER, DOMAIN, self._mac
                 )
-                entity_reg.async_update_entity(
-                    old_entity_id, new_entity_id=new_entity_id
-                )
+                if CONST_UNKNOWN in old_entity_id.lower():
+                    entity_reg.async_update_entity(
+                        old_entity_id, new_entity_id=new_entity_id
+                    )
             self._name = devinfo.name
         elif not self._name:
             self._name = devinfo.name
