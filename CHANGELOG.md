@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.6 (2022/03/26)
+### Enhancements
+- [Known name and connection type to be retained](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/9f4952a90990f773bd9e46d55c4dc132f800a11e) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.6](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/b244823c0c44ca3a27ff7aa36dbffaf9d7682e7a) - @RogerSelwyn
+
 ## v1.0.5 (2022/03/25)
 ### Enhancements
 - [Add Wifi SSID sensor](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/37e949588c7d47796c175ff2b008959db734dbea) - @RogerSelwyn
