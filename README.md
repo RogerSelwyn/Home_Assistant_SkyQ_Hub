@@ -13,7 +13,7 @@ The components provides two configuration options.
 * Track new - When enabled, newly discovered devices are enabled for tracking in HASS.
 
 The component provides two types of entities:
-* Device_Tracker - One for each device connected to the router inline with the configuration options above.
+* Device_Tracker - One for each device connected to the router inline with the configuration options above. The name and entity_id will be 'Unknown' where the device name is reported as unknown by the Sky Q Hub. However the Sky Q hub can be inconsistent, so the name and entity_id will change to a known name if it is reported by the Sky Q Hub. It will then not change back to 'Unknown'.
 * Sensor - Giving the SSID of the Wifi enabled on the router.
 
 The following services are provided:
