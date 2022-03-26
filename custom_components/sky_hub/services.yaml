@@ -2,19 +2,22 @@ delete_device:
   name: Delete a device
   description: Delete a device that no longer connects to the router
   target:
-    device:
+    entity:
       integration: sky_hub
+      domain: device_tracker
 
 keep_device:
   name: Keep a device
   description: Tag a device to mark for keeping
   target:
-    device:
+    entity:
       integration: sky_hub
+      domain: device_tracker
 
 unkeep_device:
   name: Unkeep a device
   description: Untag a device to unmark for keeping
   target:
-    device:
+    entity:
       integration: sky_hub
+      domain: device_tracker
