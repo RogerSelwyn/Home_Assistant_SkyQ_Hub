@@ -2,6 +2,7 @@
 from dataclasses import dataclass, field
 
 CAPABILITY_KEEP = "keep"
+CAPABILITY_CONNECTION = "connection"
 CONF_TRACK_NEW = "track_new"
 CONF_TRACK_UNKNOWN = "track_unknown"
 CONST_UNKNOWN = "unknown"

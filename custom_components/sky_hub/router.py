@@ -1,6 +1,7 @@
 """Represent the Sky Q Hub router."""
 import logging
 from collections.abc import Callable
+from copy import deepcopy
 from datetime import timedelta
 from typing import Any
 
@@ -10,7 +11,7 @@ from homeassistant.components.device_tracker.const import (
 )
 from homeassistant.components.device_tracker.const import DOMAIN as TRACKER_DOMAIN
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_HOST, Platform
 from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import entity_registry as er
@@ -104,7 +105,7 @@ class SkyQHubRouter:
         devices = await self._router.async_get_skyhub_data()
         if not devices:
             return
-        ssid = self._router.ssid
+        await self._async_update_sensors()
 
         # devices = TEST_DEVICES
         self._connected_devices = len(devices)
@@ -119,26 +120,28 @@ class SkyQHubRouter:
 
         for device_mac, device in self._devices.items():
             dev_info = hub_devices.pop(device_mac, None)
-            device.update(dev_info, consider_home)
+            device.update(dev_info, self.hass, consider_home=consider_home)
 
         for device_mac, dev_info in hub_devices.items():
-            if not track_unknown and dev_info["device_info"].name == "UNKNOWN":
+            if (
+                not track_unknown
+                and dev_info["device_info"].name.lower() == CONST_UNKNOWN
+            ):
                 continue
             new_device = True
             device = SkyQHubDevInfo(device_mac)
-            device.update(dev_info)
+            device.update(dev_info, self.hass)
             self._devices[device_mac] = device
 
         async_dispatcher_send(self.hass, self.signal_device_update)
         if new_device:
             async_dispatcher_send(self.hass, self.signal_device_new)
+
+    async def _async_update_sensors(self):
+        ssid = self._router.ssid
         if ssid != self._ssid:
             self._ssid = ssid
             async_dispatcher_send(self.hass, self.signal_sensor_update)
-        # else:
-        #     _LOGGER.debug("old: %s, new: %s", self._ssid, "blah")
-        #     self._ssid = "blah"
-        #     async_dispatcher_send(self.hass, self.signal_sensor_update)
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -180,9 +183,10 @@ class SkyQHubRouter:
     def _change_keep(self, call, keep):
         entity_reg = er.async_get(self.hass)
         for entity_id in call.data["entity_id"]:
-            entity_reg.async_update_entity(
-                entity_id, capabilities={CAPABILITY_KEEP: keep}
-            )
+            entity = entity_reg.async_get(entity_id)
+            capabilities = deepcopy(entity.capabilities)
+            capabilities[CAPABILITY_KEEP] = keep
+            entity_reg.async_update_entity(entity_id, capabilities=capabilities)
             signal = signal_device_keep(entity_id)
             async_dispatcher_send(self.hass, signal, keep)
 
@@ -228,7 +232,7 @@ class SkyQHubDevInfo:
         self._connected = False
         self._connection = None
 
-    def update(self, dev_info=None, consider_home=0):
+    def update(self, dev_info, hass, consider_home=0):
         """Update Sky Q Hub device info."""
         utc_point_in_time = dt_util.utcnow()
         if dev_info:
@@ -236,10 +240,7 @@ class SkyQHubDevInfo:
             self._last_activity = utc_point_in_time
             self._connected = True
             self._connection = devinfo.connection
-            if self._name != devinfo.name and devinfo.name.lower() != CONST_UNKNOWN:
-                self._name = devinfo.name
-            elif not self._name:
-                self._name = devinfo.name
+            self._update_entity_name_id(hass, devinfo)
 
         elif self._connected:
             self._connected = (
@@ -270,6 +271,23 @@ class SkyQHubDevInfo:
     def last_activity(self):
         """Return device last activity."""
         return self._last_activity
+
+    def _update_entity_name_id(self, hass, devinfo):
+        if self._name != devinfo.name and devinfo.name.lower() != CONST_UNKNOWN:
+            if self._name:
+                entity_reg = er.async_get(hass)
+                new_entity_id = entity_reg.async_generate_entity_id(
+                    Platform.DEVICE_TRACKER, devinfo.name
+                )
+                old_entity_id = entity_reg.async_get_entity_id(
+                    Platform.DEVICE_TRACKER, DOMAIN, self._mac
+                )
+                entity_reg.async_update_entity(
+                    old_entity_id, new_entity_id=new_entity_id
+                )
+            self._name = devinfo.name
+        elif not self._name:
+            self._name = devinfo.name
 
 
 def get_tracked_entities(hass, config):

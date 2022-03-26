@@ -11,9 +11,18 @@ from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (CAPABILITY_KEEP, CONF_TRACK_NEW, DATA_SKYQHUB,
-                    DEFAULT_DEVICE_NAME, DEFAULT_KEEP, DEFAULT_TRACK_NEW,
-                    DOMAIN, STATE_CABLED, STATE_DISCONNECTED)
+from .const import (
+    CAPABILITY_CONNECTION,
+    CAPABILITY_KEEP,
+    CONF_TRACK_NEW,
+    DATA_SKYQHUB,
+    DEFAULT_DEVICE_NAME,
+    DEFAULT_KEEP,
+    DEFAULT_TRACK_NEW,
+    DOMAIN,
+    STATE_CABLED,
+    STATE_DISCONNECTED,
+)
 from .router import SkyQHubRouter, get_tracked_entities, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
@@ -59,15 +68,15 @@ def add_entities(hass, config, router, async_add_entities, tracked, track_new):
         if mac in tracked:
             continue
 
-        keep = DEFAULT_KEEP
+        capabilities = None
         for tracked_entity in tracked_entities:
             if (
                 format_mac(tracked_entity.unique_id) == mac
                 and tracked_entity.capabilities
             ):
-                keep = tracked_entity.capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
+                capabilities = tracked_entity.capabilities
 
-        new_tracked.append(SkyHubDevice(router, device, track_new, keep))
+        new_tracked.append(SkyHubDevice(router, device, track_new, capabilities))
         tracked.add(mac)
 
     if new_tracked:
@@ -79,7 +88,7 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
 
     _attr_should_poll = False
 
-    def __init__(self, router: SkyQHubRouter, device, enabled_default, keep):
+    def __init__(self, router: SkyQHubRouter, device, enabled_default, capabilities):
         """Initialise the scanner."""
         self._router = router
         self._device = device
@@ -89,8 +98,13 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         if device.connection:
             self._connection = device.connection.lower().capitalize()
         else:
-            self._connection = STATE_DISCONNECTED
-        self._keep = keep
+            self._connection = capabilities.get(
+                CAPABILITY_CONNECTION, STATE_DISCONNECTED
+            )
+        if capabilities:
+            self._keep = capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
+        else:
+            self._keep = False
 
     @property
     def is_connected(self):
@@ -144,10 +158,14 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     @property
     def capability_attributes(self):
         """Return capability attributes."""
+        capabilities = {}
         if self._keep and self._keep is True:
-            return {CAPABILITY_KEEP: self._keep}
+            capabilities[CAPABILITY_KEEP] = self._keep
 
-        return None
+        if self._connection != STATE_DISCONNECTED:
+            capabilities[CAPABILITY_CONNECTION] = self._connection
+
+        return capabilities
 
     @callback
     def async_on_demand_update(self):
