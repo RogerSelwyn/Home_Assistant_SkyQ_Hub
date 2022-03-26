@@ -273,19 +273,19 @@ class SkyQHubDevInfo:
         return self._last_activity
 
     def _update_entity_name_id(self, hass, devinfo):
-        if self._name != devinfo.name and devinfo.name.lower() != CONST_UNKNOWN:
-            if self._name:
-                entity_reg = er.async_get(hass)
-                new_entity_id = entity_reg.async_generate_entity_id(
-                    Platform.DEVICE_TRACKER, devinfo.name
-                )
-                old_entity_id = entity_reg.async_get_entity_id(
-                    Platform.DEVICE_TRACKER, DOMAIN, self._mac
-                )
-                if CONST_UNKNOWN in old_entity_id.lower():
-                    entity_reg.async_update_entity(
-                        old_entity_id, new_entity_id=new_entity_id
-                    )
+        if (
+            self._name
+            and self._name != devinfo.name
+            and self._name.lower() == CONST_UNKNOWN
+        ):
+            entity_reg = er.async_get(hass)
+            new_entity_id = entity_reg.async_generate_entity_id(
+                Platform.DEVICE_TRACKER, devinfo.name
+            )
+            old_entity_id = entity_reg.async_get_entity_id(
+                Platform.DEVICE_TRACKER, DOMAIN, self._mac
+            )
+            entity_reg.async_update_entity(old_entity_id, new_entity_id=new_entity_id)
             self._name = devinfo.name
         elif not self._name:
             self._name = devinfo.name
