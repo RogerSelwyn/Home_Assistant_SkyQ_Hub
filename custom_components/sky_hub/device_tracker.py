@@ -10,10 +10,19 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (CAPABILITY_CONNECTION, CAPABILITY_KEEP, CONF_TRACK_NEW,
-                    CONST_LAST_TIME_REACHABLE, CONST_UNKNOWN, DATA_SKYQHUB,
-                    DEFAULT_DEVICE_NAME, DEFAULT_TRACK_NEW, DOMAIN,
-                    STATE_CABLED, STATE_WIRELESS)
+from .const import (
+    CAPABILITY_CONNECTION,
+    CAPABILITY_KEEP,
+    CONF_TRACK_NEW,
+    CONST_LAST_TIME_REACHABLE,
+    CONST_UNKNOWN,
+    DATA_SKYQHUB,
+    DEFAULT_DEVICE_NAME,
+    DEFAULT_TRACK_NEW,
+    DOMAIN,
+    STATE_CABLED,
+    STATE_WIRELESS,
+)
 from .router import SkyQHubRouter, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
@@ -136,7 +145,6 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     async def async_on_demand_update(self):
         """Update state."""
         self._device = self._router.devices[self._device.mac]
-        # if not self._attr_extra_state_attributes:
         self._attr_extra_state_attributes = {}
         if self._device.last_activity:
             self._attr_extra_state_attributes[
