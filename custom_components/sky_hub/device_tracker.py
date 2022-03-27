@@ -110,8 +110,7 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
                 return "mdi:wifi"
             elif self._device.connection == STATE_CABLED:
                 return "mdi:lan-connect"
-            else:
-                return "mdi:lan-pending"
+            return "mdi:lan-pending"
 
         return (
             "mdi:lan-disconnect"
