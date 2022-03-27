@@ -28,6 +28,7 @@ from .const import (
     CAPABILITY_KEEP,
     CONF_TRACK_UNKNOWN,
     CONST_UNKNOWN,
+    DEFAULT_KEEP,
     DEFAULT_TRACK_UNKNOWN,
     DOMAIN,
 )
@@ -72,7 +73,9 @@ class SkyQHubRouter:
             if entry.domain != TRACKER_DOMAIN:
                 continue
             device_mac = format_mac(entry.unique_id)
-            self._devices[device_mac] = SkyQHubDevInfo(device_mac, entry.original_name)
+            self._devices[device_mac] = SkyQHubDevInfo(
+                device_mac, entry.original_name, entry.capabilities
+            )
 
         # Update devices
         await self.async_update_devices()
@@ -187,8 +190,10 @@ class SkyQHubRouter:
             capabilities = deepcopy(entity.capabilities)
             capabilities[CAPABILITY_KEEP] = keep
             entity_reg.async_update_entity(entity_id, capabilities=capabilities)
+            device = self.devices[format_mac(entity.unique_id)]
+            device.update_keep(keep)
             signal = signal_device_keep(entity_id)
-            async_dispatcher_send(self.hass, signal, keep)
+            async_dispatcher_send(self.hass, signal)
 
     @property
     def signal_device_new(self) -> str:
@@ -224,28 +229,39 @@ class SkyQHubRouter:
 class SkyQHubDevInfo:
     """Representation of a Sky Q Hub device info."""
 
-    def __init__(self, mac, name=None):
+    def __init__(self, mac, name=None, capabilities=None):
         """Initialize a Sky Q Hub device info."""
         self._mac = mac
         self._name = name
+        self._connection = None
+        self._keep = False
         self._last_activity = None
         self._connected = False
-        self._connection = None
+        # self._start = 0
+
+        if capabilities:
+            self._connection = capabilities.get(CAPABILITY_CONNECTION)
+            self._keep = capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
 
     def update(self, dev_info, hass, consider_home=0):
         """Update Sky Q Hub device info."""
         utc_point_in_time = dt_util.utcnow()
-        if dev_info:
-            devinfo = dev_info["device_info"]
-            self._last_activity = utc_point_in_time
-            self._connected = True
-            self._update_entity_name_id(hass, devinfo)
-            self._update_entity_connection(hass, devinfo)
+        if not dev_info:
+            if self._connected:
+                self._connected = (
+                    utc_point_in_time - self._last_activity
+                ).total_seconds() < consider_home
+            return
 
-        elif self._connected:
-            self._connected = (
-                utc_point_in_time - self._last_activity
-            ).total_seconds() < consider_home
+        devinfo = dev_info["device_info"]
+        self._last_activity = utc_point_in_time
+        self._connected = True
+        self._update_entity_name_id(hass, devinfo)
+        self._update_entity_connection(hass, devinfo)
+
+    def update_keep(self, keep):
+        """Update keep property provided via service."""
+        self._keep = keep
 
     @property
     def is_connected(self):
@@ -263,14 +279,19 @@ class SkyQHubDevInfo:
         return self._name
 
     @property
-    def connection(self):
-        """Return device connection."""
-        return self._connection
-
-    @property
     def last_activity(self):
         """Return device last activity."""
         return self._last_activity
+
+    @property
+    def connection(self) -> str:
+        """Return connection."""
+        return self._connection
+
+    @property
+    def keep(self) -> str:
+        """Return connection."""
+        return self._keep
 
     def _update_entity_name_id(self, hass, devinfo):
         if (
@@ -291,7 +312,8 @@ class SkyQHubDevInfo:
             self._name = devinfo.name
 
     def _update_entity_connection(self, hass, devinfo):
-        # if not self._connection:
+        # self._start += 1
+        # if self._start == 2:
         #     devinfo.connection = "blah"
         if (
             self._connection

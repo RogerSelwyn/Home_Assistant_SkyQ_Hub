@@ -14,6 +14,7 @@ DEFAULT_TRACK_UNKNOWN = False
 DOMAIN = "sky_hub"
 STATE_DISCONNECTED = "Disconnected"
 STATE_CABLED = "Cabled"
+STATE_WIRELESS = "Wireless"
 
 
 @dataclass

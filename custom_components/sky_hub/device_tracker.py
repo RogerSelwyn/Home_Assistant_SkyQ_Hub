@@ -7,7 +7,6 @@ from homeassistant.components.device_tracker import SOURCE_TYPE_ROUTER
 from homeassistant.components.device_tracker.config_entry import ScannerEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -18,13 +17,12 @@ from .const import (
     CONST_UNKNOWN,
     DATA_SKYQHUB,
     DEFAULT_DEVICE_NAME,
-    DEFAULT_KEEP,
     DEFAULT_TRACK_NEW,
     DOMAIN,
     STATE_CABLED,
-    STATE_DISCONNECTED,
+    STATE_WIRELESS,
 )
-from .router import SkyQHubRouter, get_tracked_entities, signal_device_keep
+from .router import SkyQHubRouter, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,7 +40,7 @@ async def async_setup_entry(
     @callback
     def update_router():
         """Update the values of the router."""
-        add_entities(hass, config, router, async_add_entities, tracked, track_new)
+        add_entities(router, async_add_entities, tracked, track_new)
 
     @callback
     def delete_device(mac):
@@ -60,24 +58,15 @@ async def async_setup_entry(
 
 
 @callback
-def add_entities(hass, config, router, async_add_entities, tracked, track_new):
+def add_entities(router, async_add_entities, tracked, track_new):
     """Add new tracker entities from the router."""
     new_tracked = []
 
-    tracked_entities = get_tracked_entities(hass, config)[0]
     for mac, device in router.devices.items():
         if mac in tracked:
             continue
 
-        capabilities = None
-        for tracked_entity in tracked_entities:
-            if (
-                format_mac(tracked_entity.unique_id) == mac
-                and tracked_entity.capabilities
-            ):
-                capabilities = tracked_entity.capabilities
-
-        new_tracked.append(SkyHubDevice(router, device, track_new, capabilities))
+        new_tracked.append(SkyHubDevice(router, device, track_new))
         tracked.add(mac)
 
     if new_tracked:
@@ -89,24 +78,13 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
 
     _attr_should_poll = False
 
-    def __init__(self, router: SkyQHubRouter, device, enabled_default, capabilities):
+    def __init__(self, router: SkyQHubRouter, device, enabled_default):
         """Initialise the scanner."""
         self._router = router
         self._device = device
         self._attr_unique_id = device.mac
         self._attr_name = device.name or DEFAULT_DEVICE_NAME
         self._enabled_default = enabled_default
-
-        self._connection = CONST_UNKNOWN
-        if capabilities:
-            self._connection = capabilities.get(CAPABILITY_CONNECTION)
-        if device.connection and device.connection.lower() != CONST_UNKNOWN:
-            self._connection = device.connection.lower().capitalize()
-
-        if capabilities:
-            self._keep = capabilities.get(CAPABILITY_KEEP, DEFAULT_KEEP)
-        else:
-            self._keep = False
 
     @property
     def is_connected(self):
@@ -127,13 +105,17 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     def icon(self) -> str:
         """Return device icon."""
         if self._device.is_connected:
-            return "mdi:wifi" if self._connection != STATE_CABLED else "mdi:lan-connect"
-
-        if self._connection == STATE_DISCONNECTED:
-            return "mdi:lan-disconnect"
+            if self._device.connection == STATE_WIRELESS:
+                return "mdi:wifi"
+            elif self._device.connection == STATE_CABLED:
+                return "mdi:lan-pending"
+            else:
+                return "mdi:lan-connect"
 
         return (
-            "mdi:wifi-off" if self._connection != STATE_CABLED else "mdi:lan-disconnect"
+            "mdi:lan-disconnect"
+            if self._device.connection != STATE_WIRELESS
+            else "mdi:wifi-off"
         )
 
     @property
@@ -147,25 +129,14 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         return self._enabled_default
 
     @property
-    def extra_state_attributes(self):
-        """Return entity specific state attributes."""
-        extra_attributes = {"connection": self._connection.lower().capitalize()}
-        if self._device.last_activity:
-            extra_attributes[
-                "last_time_reachable"
-            ] = self._device.last_activity.isoformat(timespec="seconds")
-
-        return extra_attributes
-
-    @property
     def capability_attributes(self):
         """Return capability attributes."""
         capabilities = {}
-        if self._keep and self._keep is True:
-            capabilities[CAPABILITY_KEEP] = self._keep
+        if self._device.keep and self._device.keep is True:
+            capabilities[CAPABILITY_KEEP] = self._device.keep
 
-        if self._connection != CONST_UNKNOWN:
-            capabilities[CAPABILITY_CONNECTION] = self._connection
+        if self._device.connection != CONST_UNKNOWN:
+            capabilities[CAPABILITY_CONNECTION] = self._device.connection
 
         return capabilities
 
@@ -173,8 +144,21 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     def async_on_demand_update(self):
         """Update state."""
         self._device = self._router.devices[self._device.mac]
-        if self._device.connection.lower() != CONST_UNKNOWN:
-            self._connection = self._device.connection
+        # if not self._attr_extra_state_attributes:
+        self._attr_extra_state_attributes = {}
+        if self._device.last_activity:
+            self._attr_extra_state_attributes[
+                "last_time_reachable"
+            ] = self._device.last_activity.isoformat(timespec="seconds")
+
+        if self._device.keep and self._device.keep is True:
+            self._attr_extra_state_attributes[CAPABILITY_KEEP] = self._device.keep
+
+        if self._device.connection != CONST_UNKNOWN:
+            self._attr_extra_state_attributes[
+                CAPABILITY_CONNECTION
+            ] = self._device.connection
+
         self.async_write_ha_state()
 
     async def async_added_to_hass(self):
@@ -191,11 +175,11 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
             async_dispatcher_connect(
                 self.hass,
                 signal,
-                self.async_device_keep,
+                self.async_device_capability,
             )
         )
 
     @callback
-    def async_device_keep(self, keep):
-        """Update keep capability."""
-        self._keep = keep
+    def async_device_capability(self):
+        """Update capability."""
+        self.async_on_demand_update()
