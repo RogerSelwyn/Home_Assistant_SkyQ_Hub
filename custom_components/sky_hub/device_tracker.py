@@ -175,11 +175,11 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
             async_dispatcher_connect(
                 self.hass,
                 signal,
-                self.async_device_capability,
+                self.async_device_keep,
             )
         )
 
     @callback
-    def async_device_capability(self):
+    def async_device_keep(self):
         """Update capability."""
         self.async_on_demand_update()
