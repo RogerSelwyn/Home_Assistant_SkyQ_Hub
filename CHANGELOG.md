@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.10 (2022/03/27)
+### Fixes
+- [Fix incorrect icons](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/7befb3784368edaf2a28e27ec096fd38b9329fbf) - @RogerSelwyn
+
+### Maintenance
+- [Revert method name](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/7028208e50242ae4a1a0097f22c88b54adeb229a) - @RogerSelwyn
+- [Push code to async and tidy up](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/253eea12cf957548dc13574d4b93955d63b2d913) - @RogerSelwyn
+- [Bump to v1.0.10](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/c753a4abe5b20315078e9b7de1759300b8e94e19) - @RogerSelwyn
+
 ## v1.0.9 (2022/03/27)
 ### Maintenance
 - [Simpify code significantly](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/abe93eac7e1fb188ecba9d40ec744ed79e09b1b9) - @RogerSelwyn
