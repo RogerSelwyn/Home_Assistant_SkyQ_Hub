@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.9 (2022/03/27)
+### Maintenance
+- [Simpify code significantly](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/abe93eac7e1fb188ecba9d40ec744ed79e09b1b9) - @RogerSelwyn
+- [Bump to v1.0.9](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/89862d78b8e230dd034b9ef1b23eace3b861ef26) - @RogerSelwyn
+
 ## v1.0.8 (2022/03/26)
 ### Fixes
 - [Make sure connection type is retained](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/c7f1ab4fcf0d77b78dcdfda95762fa6dc2438bfa) - @RogerSelwyn
