@@ -14,11 +14,11 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     router = SkyQHubRouter(hass, config_entry)
     await router.async_setup()
 
-    router.async_on_close(config_entry.add_update_listener(update_listener))
+    await router.async_on_close(config_entry.add_update_listener(update_listener))
 
     async def async_close_connection(event):  # pylint: disable=unused-argument
         """Close Sky Q Hub connection on HA Stop."""
-        await router.close()
+        await router.async_close()
 
     config_entry.async_on_unload(
         hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, async_close_connection)
@@ -37,7 +37,7 @@ async def async_unload_entry(hass, config):
     """Unload a config entry."""
     if unload_ok := await hass.config_entries.async_unload_platforms(config, PLATFORMS):
         router = hass.data[DOMAIN][config.entry_id][DATA_SKYQHUB]
-        await router.close()
+        await router.async_close()
         hass.data[DOMAIN].pop(config.entry_id)
 
     return unload_ok

@@ -24,7 +24,7 @@ async def async_setup_entry(
         """Update the values of the sensor."""
         await skyqwifi.async_on_demand_update()
 
-    router.async_on_close(
+    await router.async_on_close(
         async_dispatcher_connect(hass, router.signal_sensor_update, async_update_sensor)
     )
 

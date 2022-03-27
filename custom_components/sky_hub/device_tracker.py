@@ -10,18 +10,10 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (
-    CAPABILITY_CONNECTION,
-    CAPABILITY_KEEP,
-    CONF_TRACK_NEW,
-    CONST_UNKNOWN,
-    DATA_SKYQHUB,
-    DEFAULT_DEVICE_NAME,
-    DEFAULT_TRACK_NEW,
-    DOMAIN,
-    STATE_CABLED,
-    STATE_WIRELESS,
-)
+from .const import (CAPABILITY_CONNECTION, CAPABILITY_KEEP, CONF_TRACK_NEW,
+                    CONST_LAST_TIME_REACHABLE, CONST_UNKNOWN, DATA_SKYQHUB,
+                    DEFAULT_DEVICE_NAME, DEFAULT_TRACK_NEW, DOMAIN,
+                    STATE_CABLED, STATE_WIRELESS)
 from .router import SkyQHubRouter, signal_device_keep
 
 _LOGGER = logging.getLogger(__name__)
@@ -38,27 +30,27 @@ async def async_setup_entry(
     tracked: set = set()
 
     @callback
-    def update_router():
+    async def async_update_router():
         """Update the values of the router."""
-        add_entities(router, async_add_entities, tracked, track_new)
+        async_add_device_entities(router, async_add_entities, tracked, track_new)
 
     @callback
-    def delete_device(mac):
+    async def async_delete_device(mac):
         """Delete devices from tracking on the router."""
         tracked.remove(mac)
 
-    router.async_on_close(
-        async_dispatcher_connect(hass, router.signal_device_new, update_router)
+    await router.async_on_close(
+        async_dispatcher_connect(hass, router.signal_device_new, async_update_router)
     )
-    router.async_on_close(
-        async_dispatcher_connect(hass, router.signal_device_delete, delete_device)
+    await router.async_on_close(
+        async_dispatcher_connect(hass, router.signal_device_delete, async_delete_device)
     )
 
-    update_router()
+    await async_update_router()
 
 
 @callback
-def add_entities(router, async_add_entities, tracked, track_new):
+def async_add_device_entities(router, async_add_entities, tracked, track_new):
     """Add new tracker entities from the router."""
     new_tracked = []
 
@@ -141,14 +133,14 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         return capabilities
 
     @callback
-    def async_on_demand_update(self):
+    async def async_on_demand_update(self):
         """Update state."""
         self._device = self._router.devices[self._device.mac]
         # if not self._attr_extra_state_attributes:
         self._attr_extra_state_attributes = {}
         if self._device.last_activity:
             self._attr_extra_state_attributes[
-                "last_time_reachable"
+                CONST_LAST_TIME_REACHABLE
             ] = self._device.last_activity.isoformat(timespec="seconds")
 
         if self._device.keep and self._device.keep is True:
@@ -180,6 +172,6 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         )
 
     @callback
-    def async_device_keep(self):
+    async def async_device_keep(self):
         """Update capability."""
-        self.async_on_demand_update()
+        await self.async_on_demand_update()
