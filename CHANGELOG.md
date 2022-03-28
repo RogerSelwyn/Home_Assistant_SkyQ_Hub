@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.12 (2022/03/28)
+### Enhancements
+- [Add check for router available](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/180926fdd971bdec35daa468aa8085a7ee373133) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.12](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/d0098e561e6ae308ca202c71457db249c7dc8c38) - @RogerSelwyn
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/3b32a2278df6d8aaeaf433e641fd062a21a32d78) - @actions-user
+
 ## v1.0.11 (2022/03/28)
 ### Enhancements
 - [Add extra info on config sensor](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/7502fa21b0121297774cd22b05adc4edeef7d76e) - @RogerSelwyn
