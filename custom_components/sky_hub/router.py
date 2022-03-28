@@ -6,9 +6,10 @@ from datetime import timedelta
 from typing import Any
 
 from homeassistant.components.device_tracker.const import (
-    CONF_CONSIDER_HOME, DEFAULT_CONSIDER_HOME)
-from homeassistant.components.device_tracker.const import \
-    DOMAIN as TRACKER_DOMAIN
+    CONF_CONSIDER_HOME,
+    DEFAULT_CONSIDER_HOME,
+)
+from homeassistant.components.device_tracker.const import DOMAIN as TRACKER_DOMAIN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, Platform
 from homeassistant.core import CALLBACK_TYPE, HomeAssistant, callback
@@ -22,8 +23,15 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
 from pyskyqhub.skyq_hub import SkyQHub
 
-from .const import (CAPABILITY_CONNECTION, CAPABILITY_KEEP, CONF_TRACK_UNKNOWN,
-                    CONST_UNKNOWN, DEFAULT_KEEP, DEFAULT_TRACK_UNKNOWN, DOMAIN)
+from .const import (
+    CAPABILITY_CONNECTION,
+    CAPABILITY_KEEP,
+    CONF_TRACK_UNKNOWN,
+    CONST_UNKNOWN,
+    DEFAULT_KEEP,
+    DEFAULT_TRACK_UNKNOWN,
+    DOMAIN,
+)
 
 SCAN_INTERVAL = timedelta(seconds=20)
 
@@ -37,6 +45,8 @@ class SkyQHubRouter:
         """Initialize a Sky Q Hub router."""
         self.hass = hass
         self._ssid = None
+        self._wan_mac = None
+        self._wan_ip = None
         self._config_entry = config_entry
         self._devices: dict[str, Any] = {}
         # self._connected_devices = 0
@@ -135,27 +145,39 @@ class SkyQHubRouter:
             async_dispatcher_send(self.hass, self.signal_device_new)
 
     async def _async_update_sensors(self):
-        ssid = self._router.ssid
-        if ssid != self._ssid:
-            self._ssid = ssid
+        self._wan_mac = self._router.wan_mac
+        self._ssid = self._router.ssid
+        ipaddr = self._router.wan_ip
+        if ipaddr != self._wan_ip:
+            self._wan_ip = ipaddr
             async_dispatcher_send(self.hass, self.signal_sensor_update)
 
     @property
     def device_info(self) -> DeviceInfo:
         """Return the device information."""
         return DeviceInfo(
-            identifiers={(DOMAIN, "SkyQHub")},
+            identifiers={(DOMAIN, self._router.wan_mac)},
             name=self._host,
             model="Sky Q Hub",
             manufacturer="Sky",
             sw_version="n/a",
-            configuration_url=f"http://{self._host}",
+            configuration_url=self._router.url,
         )
 
     @property
     def ssid(self):
         """Return the ssid of wifi on router."""
         return self._ssid
+
+    @property
+    def wan_ip(self):
+        """Return the wan ip address router."""
+        return self._wan_ip
+
+    @property
+    def wan_mac(self):
+        """Return the wan mac address router."""
+        return self._wan_mac
 
     def delete_device(self, call):
         """Delete a device."""

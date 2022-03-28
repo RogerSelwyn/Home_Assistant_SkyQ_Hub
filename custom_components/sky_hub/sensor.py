@@ -7,7 +7,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DATA_SKYQHUB, DOMAIN
+from .const import ATTRIBUTE_SSID, ATTRIBUTE_WAN_MAC, DATA_SKYQHUB, DOMAIN
 from .router import SkyQHubRouter
 
 
@@ -17,7 +17,7 @@ async def async_setup_entry(
     """Set up the sensors."""
     router: SkyQHubRouter = hass.data[DOMAIN][entry.entry_id][DATA_SKYQHUB]
 
-    skyqwifi = SkyQWifiSensor(router)
+    skyqwifi = SkyQConfigSensor(router)
 
     @callback
     async def async_update_sensor():
@@ -31,35 +31,43 @@ async def async_setup_entry(
     async_add_entities([skyqwifi])
 
 
-class SkyQWifiSensor(SensorEntity):
-    """Wifi Sensor Entity for SkyQ Device."""
+class SkyQConfigSensor(SensorEntity):
+    """Config Sensor Entity for SkyQ Hub Device."""
 
     _attr_entity_category = EntityCategory.DIAGNOSTIC
     _attr_should_poll = False
 
     def __init__(self, router: SkyQHubRouter):
-        """Initialize the Wifi sensor."""
+        """Initialize the Config sensor."""
         self._router = router
 
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        return self._router.ssid
+        return self._router.wan_ip
 
     @property
     def name(self):
         """Get the name of the devices."""
-        return "Sky Q Hub SSID"
+        return "Sky Q Hub WAN IP"
 
     @property
     def unique_id(self):
         """Get the unique id of the device."""
-        return "skyqhub"
+        return f"skyqhub_{self._router.wan_mac}"
 
     @property
     def device_info(self):
         """Entity device information."""
         return self._router.device_info
+
+    @property
+    def extra_state_attributes(self):
+        """Return entity specific state attributes."""
+        return {
+            ATTRIBUTE_WAN_MAC: self._router.wan_mac,
+            ATTRIBUTE_SSID: self._router.ssid,
+        }
 
     async def async_on_demand_update(self):
         """Update state."""

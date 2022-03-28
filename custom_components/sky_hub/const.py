@@ -1,6 +1,8 @@
 """Sky_hub component constants."""
 from dataclasses import dataclass, field
 
+ATTRIBUTE_WAN_MAC = "wan_mac"
+ATTRIBUTE_SSID = "ssid"
 CAPABILITY_KEEP = "keep"
 CAPABILITY_CONNECTION = "connection"
 CONF_TRACK_NEW = "track_new"
@@ -9,6 +11,7 @@ CONST_LAST_TIME_REACHABLE = "last_time_reachable"
 CONST_UNKNOWN = "unknown"
 DATA_SKYQHUB = "skyqhub"
 DEFAULT_DEVICE_NAME = "Unknown device"
+DEFAULT_HOST = "192.168.1.254"
 DEFAULT_KEEP = False
 DEFAULT_TRACK_NEW = False
 DEFAULT_TRACK_UNKNOWN = False
