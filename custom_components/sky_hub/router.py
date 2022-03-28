@@ -44,6 +44,7 @@ class SkyQHubRouter:
     def __init__(self, hass: HomeAssistant, config_entry: ConfigEntry) -> None:
         """Initialize a Sky Q Hub router."""
         self.hass = hass
+        self._available = False
         self._ssid = None
         self._wan_mac = None
         self._wan_ip = None
@@ -147,9 +148,17 @@ class SkyQHubRouter:
     async def _async_update_sensors(self):
         self._wan_mac = self._router.wan_mac
         self._ssid = self._router.ssid
+        update_sensor = False
         ipaddr = self._router.wan_ip
         if ipaddr != self._wan_ip:
+            update_sensor = True
             self._wan_ip = ipaddr
+        available = self._router.available
+        if available != self._available:
+            update_sensor = True
+            self._available = available
+
+        if update_sensor:
             async_dispatcher_send(self.hass, self.signal_sensor_update)
 
     @property
@@ -163,6 +172,11 @@ class SkyQHubRouter:
             sw_version="n/a",
             configuration_url=self._router.url,
         )
+
+    @property
+    def available(self):
+        """Return whether router is responding correctly."""
+        return self._available
 
     @property
     def ssid(self):

@@ -7,7 +7,8 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import ATTRIBUTE_SSID, ATTRIBUTE_WAN_MAC, DATA_SKYQHUB, DOMAIN
+from .const import (ATTRIBUTE_AVAILABLE, ATTRIBUTE_SSID, ATTRIBUTE_WAN_MAC,
+                    CONST_SENSOR_NAME, DATA_SKYQHUB, DOMAIN)
 from .router import SkyQHubRouter
 
 
@@ -49,12 +50,12 @@ class SkyQConfigSensor(SensorEntity):
     @property
     def name(self):
         """Get the name of the devices."""
-        return "Sky Q Hub WAN IP"
+        return CONST_SENSOR_NAME
 
     @property
     def unique_id(self):
         """Get the unique id of the device."""
-        return f"skyqhub_{self._router.wan_mac}"
+        return f"{DATA_SKYQHUB}_{self._router.wan_mac}"
 
     @property
     def device_info(self):
@@ -65,8 +66,9 @@ class SkyQConfigSensor(SensorEntity):
     def extra_state_attributes(self):
         """Return entity specific state attributes."""
         return {
-            ATTRIBUTE_WAN_MAC: self._router.wan_mac,
+            ATTRIBUTE_AVAILABLE: self._router.available,
             ATTRIBUTE_SSID: self._router.ssid,
+            ATTRIBUTE_WAN_MAC: self._router.wan_mac,
         }
 
     async def async_on_demand_update(self):
