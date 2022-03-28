@@ -16,12 +16,6 @@ The component provides two types of entities:
 * Device_Tracker - One for each device connected to the router inline with the configuration options above. The name and entity_id will be 'Unknown' where the device name is reported as unknown by the Sky Q Hub. However the Sky Q hub can be inconsistent, so the name and entity_id will change to a known name if it is reported by the Sky Q Hub. The name will continue to change with that reported by the Hub, the entity_id will only change once. The name will not change back to 'Unknown'.
 * Sensor - Giving the SSID of the Wifi enabled on the router.
 
-The following properties are provided from the component:
-* available - Whether the router was accessible and providing valid data.
-* ssid - The Wifi SSID provided by the router.
-* wan_ip - The extrenal IP address of the router.
-* wan_mac - The external mac of the router.
-
 The following services are provided:
 * sky_hub.delete_device - Deletes a device
 * sky_hub.keep_device - Marks a device to be kept (this has no particular function other than adding a marker in the entity registry which can be used externally)
