@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.0.11 (2022/03/28)
+### Enhancements
+- [Add extra info on config sensor](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/7502fa21b0121297774cd22b05adc4edeef7d76e) - @RogerSelwyn
+
+### Maintenance
+- [Codefactor code improvement](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/cddb0a3bc0ac24d15afc6cff471141be8298a383) - @RogerSelwyn
+- [Codefactor code improvement](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/af2edfb87558fff49459b5436301ddd97f438b71) - @RogerSelwyn
+- [Bump to v1.0.11](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/ba7ac9b72bdbf76ac8b71673e5b73a63d40f3f39) - @RogerSelwyn
+- [Auto update requirements.txt](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/ab561d328014b68fcb922bb70e5b78d3299aa673) - @actions-user
+
 ## v1.0.10 (2022/03/27)
 ### Fixes
 - [Fix incorrect icons](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/7befb3784368edaf2a28e27ec096fd38b9329fbf) - @RogerSelwyn
