@@ -12,7 +12,6 @@
           "host": "Host"
         },
         "description": "Set up Sky qHub integration.",
-        "title": "Sky Q Hub"
       }
     }
   },
@@ -23,7 +22,7 @@
           "track_unknown": "Track unknown devices",
           "track_new": "Track new devices"
         },
-        "title": "Options for Sky Q Hub"
+        "description": "Setup options for {name}"
       }
     }
   }
