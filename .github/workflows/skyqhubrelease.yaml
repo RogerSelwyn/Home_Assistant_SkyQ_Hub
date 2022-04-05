@@ -1,4 +1,4 @@
-name: SkyQ Release
+name: Sky Q Hub Release
 
 on:
   release:
