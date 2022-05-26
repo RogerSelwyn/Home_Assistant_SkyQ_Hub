@@ -3,7 +3,6 @@
   "zip_release": true,
   "homeassistant": "2021.10.0",
   "content_in_root": false,
-  "domains": ["device_tracker"],
   "filename": "sky_hub.zip",
   "render_readme": true
 }
