@@ -1,5 +1,6 @@
 # Changelog
 
+
 ## v1.0.12 (2022/03/28)
 ### Enhancements
 - [Add check for router available](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/180926fdd971bdec35daa468aa8085a7ee373133) - @RogerSelwyn
