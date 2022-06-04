@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.0.13 (2022/06/04)
+### Enhancements
+- [Delay update of entities](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/bb8e4a645d4065b45eb690aabf271fa1ec279dc4) - @RogerSelwyn
+
+### Fixes
+- [Fixes for hassfest failing](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/8610b90aa07740153d08d32756384916b9c6412b) - @RogerSelwyn
+- [Fix en.json](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/fc08cf4e873f1901773c84edd1825cf63ba0d401) - @RogerSelwyn
+
+### Maintenance
+- [Update skyqhubrelease.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/a1df841b121f464b0e674e32c2a7ee015ba1c3ac) - @RogerSelwyn
+- [Update CHANGELOG.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2b35b4025ed43cbd458dedc9da2758f73fa41482) - @RogerSelwyn
+- [Remove domains key from hacs.json](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/f59bf7a092e1e8094964af6514ad0cbac616b1d6) - @RogerSelwyn
+- [Ignore brands (this integration overrides core integration)](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/746bd19b84cb23b984ac3d806dc5217cf2dbafa6) - @RogerSelwyn
+- [Update hacs.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/a334494613471960dfb7dfc5682b58867668f9e9) - @RogerSelwyn
+- [Update hacs.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/8a4f87fed54f2edd66b9046a1d30217edac24314) - @RogerSelwyn
+- [Update hacs.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/6b07c3553b226fa2bb83c6b577b1237a845d52a1) - @RogerSelwyn
+- [Bump to v1.0.13](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/c124530609c1eb860ac702a0408482da77a343db) - @RogerSelwyn
+
 ## v1.0.12 (2022/03/28)
 ### Enhancements
 - [Add check for router available](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/180926fdd971bdec35daa468aa8085a7ee373133) - @RogerSelwyn
