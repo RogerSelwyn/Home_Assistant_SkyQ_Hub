@@ -71,7 +71,7 @@ def async_add_device_entities(router, async_add_entities, tracked, track_new):
         tracked.add(mac)
 
     if new_tracked:
-        async_add_entities(new_tracked)
+        async_add_entities(new_tracked, False)
 
 
 class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method

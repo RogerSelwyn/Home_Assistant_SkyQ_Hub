@@ -7,8 +7,14 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import (ATTRIBUTE_AVAILABLE, ATTRIBUTE_SSID, ATTRIBUTE_WAN_MAC,
-                    CONST_SENSOR_NAME, DATA_SKYQHUB, DOMAIN)
+from .const import (
+    ATTRIBUTE_AVAILABLE,
+    ATTRIBUTE_SSID,
+    ATTRIBUTE_WAN_MAC,
+    CONST_SENSOR_NAME,
+    DATA_SKYQHUB,
+    DOMAIN,
+)
 from .router import SkyQHubRouter
 
 
@@ -29,7 +35,7 @@ async def async_setup_entry(
         async_dispatcher_connect(hass, router.signal_sensor_update, async_update_sensor)
     )
 
-    async_add_entities([skyqwifi])
+    async_add_entities([skyqwifi], False)
 
 
 class SkyQConfigSensor(SensorEntity):
