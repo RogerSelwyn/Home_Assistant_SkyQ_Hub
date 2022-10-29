@@ -1,6 +1,11 @@
 # Changelog
 
 
+## v1.0.15 (2022/10/29)
+### Maintenance
+- [Add integration_type](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/bbe8eae5c454fcb0898c5b04c3f3cbe6da19d20d) - @RogerSelwyn
+- [Bump to v1.0.15](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/ae2b4c0f3a4fc7ca86996feee0e5d17d11bc26e2) - @RogerSelwyn
+
 ## v1.0.14 (2022/09/14)
 ### Enhancements
 - [Add update to entity name](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/18f08e75d43b70e039b98703b44e28745e8b44e6) - @RogerSelwyn
