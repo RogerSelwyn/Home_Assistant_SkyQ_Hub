@@ -1,6 +1,7 @@
 {
   "domain": "sky_hub",
   "name": "Sky Q Hub",
+  "integration_type": "hub",
   "documentation": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub",
   "issue_tracker": "https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/issues",
   "requirements": [
