@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v1.0.16 (2022/11/03)
+### Fixes
+- [Fix error in config_flow](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/b2f4328d1699e4adf76c668700e51f0c4b34f2f3) - @RogerSelwyn
+
+### Maintenance
+- [Bump to v1.0.16](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/ac22e4ec66ac2f921f9848f3bbd29658cebf8809) - @RogerSelwyn
+
 ## v1.0.15 (2022/10/29)
 ### Maintenance
 - [Add integration_type](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/bbe8eae5c454fcb0898c5b04c3f3cbe6da19d20d) - @RogerSelwyn
