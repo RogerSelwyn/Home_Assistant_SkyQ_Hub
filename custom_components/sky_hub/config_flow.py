@@ -5,7 +5,7 @@ import re
 
 import voluptuous as vol
 from homeassistant import config_entries, exceptions
-from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_HOST, CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from pyskyqhub.skyq_hub import SkyQHub
@@ -72,6 +72,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     def __init__(self, config: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
         self.config = config
+        self._name = config.title
 
     async def async_step_init(self, user_input=None):
         """Handle options flow."""
@@ -93,7 +94,11 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             }
         )
 
-        return self.async_show_form(step_id="init", data_schema=data_schema)
+        return self.async_show_form(
+            step_id="init",
+            description_placeholders={CONF_NAME: self._name},
+            data_schema=data_schema,
+        )
 
 
 def host_valid(host):
