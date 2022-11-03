@@ -12,7 +12,7 @@
   ],
   "iot_class": "local_polling",
   "config_flow": true,
-  "version": "v1.0.15",
+  "version": "v1.0.16",
   "loggers": [
     "pyskyqhub"
   ]
