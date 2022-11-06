@@ -21,6 +21,7 @@ from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
+
 from pyskyqhub.skyq_hub import SkyQHub
 
 from .const import (
@@ -57,7 +58,7 @@ class SkyQHubRouter:
         self._websession = async_get_clientsession(hass)
         self._router = None
         self._options = {}
-        self._options.update(config_entry.options)
+        self._options |= config_entry.options
 
     async def async_setup(self) -> None:
         """Set up a Sky Q Hub router."""
