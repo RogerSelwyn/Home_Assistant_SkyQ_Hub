@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v1.0.17 (2023/02/18)
+### Maintenance
+
+- [Sourcery suggested improvements](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/ab8fbae65b50a3cbfc089b421596162972c24ffd) - @RogerSelwyn
+- [Remove deprecated call](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2b372475b60406cbe5a218dadbe474e0402351db) - @RogerSelwyn
+- [Bump to v1.0.17](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/494b19af513b146ed364ac14b5c32238f556f5d0) - @RogerSelwyn
+- [Auto update manifest.json](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/44305356867913d77265ac683514357e29b27270) - @actions-user
+
+
 ## v1.0.16 (2022/11/03)
 ### Fixes
 - [Fix error in config_flow](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/b2f4328d1699e4adf76c668700e51f0c4b34f2f3) - @RogerSelwyn
