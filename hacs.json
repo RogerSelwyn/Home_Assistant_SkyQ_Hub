@@ -1,7 +1,7 @@
 {
   "name": "SkyQ Hub",
   "zip_release": true,
-  "homeassistant": "2021.10.0",
+  "homeassistant": "2022.08.0",
   "content_in_root": false,
   "filename": "sky_hub.zip",
   "render_readme": true
