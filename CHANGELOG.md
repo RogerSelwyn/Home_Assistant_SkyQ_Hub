@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v1.0.18 (2023/12/25)
+### 🔨 Maintenance
+- [Update dependabot.yml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/86b2fc2fa67ab9ad9eda555f45f2466a80218a8e) - @RogerSelwyn
+- [Delete .github/stale.yml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/2724a6862b9ab91103a077aa0057d76568035b72) - @RogerSelwyn
+- [Create stale.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/cafc9ef5015b1c22ffa9e6e74928af0a76d3963a) - @RogerSelwyn
+- [Remove deprecated constant](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/6d0848c1aaf696e9bd2fc09a6b75b3eb8326c63b) - @RogerSelwyn
+- [Update manifest.json](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/f2e86c9efdfa57c73ced697b7de6ecaf14b62b07) - @RogerSelwyn
+- [Update hacs.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/60dc63cc2636b98567e417a08db444d49b1c9276) - @RogerSelwyn
+- [Update hassfest.yaml](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/cd92e498c4f34dabd4bc73d14f4ff9ed23d359d9) - @RogerSelwyn
+- [Update README.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/b0a0a1b291571af0b512feb8d76c9d9dc1759b6a) - @RogerSelwyn
+
+### 🔖 Release
+- [Bump to v1.0.18](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/f7a223bd8638008526862996f75714cc0c859a85) - @RogerSelwyn
+
+
 ## v1.0.17 (2023/02/18)
 ### Maintenance
 
