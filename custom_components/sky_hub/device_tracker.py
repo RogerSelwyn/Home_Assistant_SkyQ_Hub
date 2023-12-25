@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 
-from homeassistant.components.device_tracker import SOURCE_TYPE_ROUTER
+from homeassistant.components.device_tracker import SourceType
 from homeassistant.components.device_tracker.config_entry import ScannerEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
@@ -95,7 +95,7 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
     @property
     def source_type(self) -> str:
         """Return the source type."""
-        return SOURCE_TYPE_ROUTER
+        return SourceType.ROUTER
 
     @property
     def hostname(self) -> str:
@@ -108,10 +108,12 @@ class SkyHubDevice(ScannerEntity):  # pylint: disable=abstract-method
         if self._device.is_connected:
             if self._device.connection == STATE_WIRELESS:
                 return "mdi:wifi"
-            if self._device.connection == STATE_CABLED:
-                return "mdi:lan-connect"
-            return "mdi:lan-pending"
-
+            else:
+                return (
+                    "mdi:lan-connect"
+                    if self._device.connection == STATE_CABLED
+                    else "mdi:lan-pending"
+                )
         return (
             "mdi:lan-disconnect"
             if self._device.connection != STATE_WIRELESS
