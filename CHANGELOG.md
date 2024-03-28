@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.0.19 (2024/03/28)
+### ✨ Enhancements
+- [Add service icons](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/9b392f0c883b760573268a43ebd09ab81aeaa60b) - @RogerSelwyn
+
+### 📚 Documentation
+- [Update README.md](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/275317903567b9e9499c56246e9a3c0f1286312c) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v1.0.19](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/08962fb4987feacb67d6b44eb4bf5ce7d857bfd1) - @RogerSelwyn
+
 
 ## v1.0.18 (2023/12/25)
 ### 🔨 Maintenance
