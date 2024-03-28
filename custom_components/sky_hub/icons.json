@@ -1,0 +1,7 @@
+{
+    "services": {
+        "delete_device": "mdi:delete",
+        "keep_device": "mdi:content-save",
+        "unkeep_device": "mdi:content-save-minus"
+    }
+}
