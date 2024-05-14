@@ -1,4 +1,5 @@
 """Represent the Sky Q Hub router."""
+
 import logging
 from collections.abc import Callable
 from copy import deepcopy
@@ -21,7 +22,6 @@ from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
-
 from pyskyqhub.skyq_hub import SkyQHub
 
 from .const import (
@@ -75,7 +75,6 @@ class SkyQHubRouter:
             entity_reg, self._config_entry.entry_id
         )
         for entry in track_entries:
-
             if entry.domain != TRACKER_DOMAIN:
                 continue
             device_mac = format_mac(entry.unique_id)
@@ -102,7 +101,8 @@ class SkyQHubRouter:
         self._on_close.append(func)
 
     async def async_update_all(
-        self, scaninterval=None  # pylint: disable=unused-argument
+        self,
+        scaninterval=None,  # pylint: disable=unused-argument
     ) -> None:
         """Update all Sky Q Hub platforms."""
         await self._async_update_devices()
