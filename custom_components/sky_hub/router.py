@@ -194,7 +194,7 @@ class SkyQHubRouter:
         """Return the wan mac address router."""
         return self._wan_mac
 
-    def delete_device(self, call):
+    async def delete_device(self, call):
         """Delete a device."""
         entity_reg = er.async_get(self.hass)
         for entity_id in call.data["entity_id"]:
@@ -204,15 +204,15 @@ class SkyQHubRouter:
             async_dispatcher_send(self.hass, self.signal_device_delete, mac)
             entity_reg.async_remove(entity_id)
 
-    def keep_device(self, call):
+    async def keep_device(self, call):
         """Keep a device."""
-        self._change_keep(call, True)
+        await self._async_change_keep(call, True)
 
-    def unkeep_device(self, call):
+    async def unkeep_device(self, call):
         """Unkeep a device."""
-        self._change_keep(call, False)
+        await self._async_change_keep(call, False)
 
-    def _change_keep(self, call, keep):
+    async def _async_change_keep(self, call, keep):
         entity_reg = er.async_get(self.hass)
         for entity_id in call.data["entity_id"]:
             entity = entity_reg.async_get(entity_id)
