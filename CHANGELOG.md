@@ -1,5 +1,14 @@
 # Changelog
 
+
+## v1.0.20 (2024/05/14)
+### 🧰 Maintenance
+- [Ruff formatting](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/1c99739a28ee8d98daa42c384fb6bc845d8b054e) - @RogerSelwyn
+- [Set services as async to ent_reg calls are outside the thread](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/e63ca76a3532c5732c2ab31f6e2c5b394c0f3f77) - @RogerSelwyn
+
+### 🔖 Release
+- [Release v1.0.20](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/367b9453210854d2ebc27c6603a8c9140bd9c9f7) - @RogerSelwyn
+
 ## v1.0.19 (2024/03/28)
 ### ✨ Enhancements
 - [Add service icons](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/commit/9b392f0c883b760573268a43ebd09ab81aeaa60b) - @RogerSelwyn
