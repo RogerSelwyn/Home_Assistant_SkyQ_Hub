@@ -1,6 +1,6 @@
 [![Validate with hassfest](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/actions/workflows/hassfest.yaml/badge.svg)](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/actions/workflows/hassfest.yaml) [![HACS Validate](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/actions/workflows/hacs.yaml/badge.svg)](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/actions/workflows/hacs.yaml) [![CodeFactor](https://www.codefactor.io/repository/github/rogerselwyn/Home_Assistant_SkyQ_Hub/badge)](https://www.codefactor.io/repository/github/rogerselwyn/home_assistant_skyq_hub) [![Downloads for latest release](https://img.shields.io/github/downloads/RogerSelwyn/Home_Assistant_SkyQ_Hub/latest/total.svg)](https://github.com/RogerSelwyn/Home_Assistant_SkyQ_Hub/releases/latest)
 
-![GitHub release](https://img.shields.io/github/v/release/RogerSelwyn/Home_Assistant_SkyQ_Hub) [![maintained](https://img.shields.io/maintenance/yes/2025.svg)](#) [![maintainer](https://img.shields.io/badge/maintainer-%20%40RogerSelwyn-blue.svg)](https://github.com/RogerSelwyn) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration) 
+![GitHub release](https://img.shields.io/github/v/release/RogerSelwyn/Home_Assistant_SkyQ_Hub) [![maintained](https://img.shields.io/maintenance/no/2025.svg)](#) [![maintainer](https://img.shields.io/badge/maintainer-%20%40RogerSelwyn-blue.svg)](https://github.com/RogerSelwyn) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration) 
 
 # Note
 
