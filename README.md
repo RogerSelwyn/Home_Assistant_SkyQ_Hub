@@ -2,6 +2,9 @@
 
 ![GitHub release](https://img.shields.io/github/v/release/RogerSelwyn/Home_Assistant_SkyQ_Hub) [![maintained](https://img.shields.io/maintenance/yes/2025.svg)](#) [![maintainer](https://img.shields.io/badge/maintainer-%20%40RogerSelwyn-blue.svg)](https://github.com/RogerSelwyn) [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration) 
 
+# Note
+
+There will minimal ongoing support for this integration since I no longer have any Sky Q devices to develop/test against.
 
 # Sky Q Hub component for Home Assistant
 
